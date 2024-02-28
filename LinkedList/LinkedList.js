@@ -5,7 +5,6 @@ class LinkedList {
 
   //create
   add(value) {
-    this.length++;
     if (this.head) {
       let node = new Node(value);
       this.tail.next = node;
@@ -22,7 +21,7 @@ class LinkedList {
       this.tail.prev = this.head;
       this.tail.next = this.head;
     }
-    return this.length;
+    return ++this.length;
   }
 
   //private method
@@ -30,7 +29,7 @@ class LinkedList {
     let count = 0;
     let prev;
     let current = this.head;
-    if (index >= this.length || index <0) {
+    if (index >= this.length || index < 0) {
       return [undefined, null];
     }
     while (count < index) {
@@ -55,18 +54,16 @@ class LinkedList {
       if (current.next === this.head) {
         this.tail = prev;
       }
-      this.length--;
-      return this.length;
+      return --this.length;
     } else if (current !== null) {
       this.head = current.next;
       this.tail.next = this.head;
       this.head.prev = this.tail;
-      this.length--;
-      return this.length;
+      return --this.length;
     }
   }
 
-  getLength(){
+  getLength() {
     return this.length;
   }
 }
