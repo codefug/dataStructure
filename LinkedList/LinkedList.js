@@ -24,13 +24,33 @@ class LinkedList {
   head = null;
   //Create
   add(value){
-
+    if (this.head){
+      let current = this.head;
+      while (current.next){
+        current=current.next;
+      }
+      current.next = new Node(value);
+    }else{
+      this.head = new Node(value);
+      this.length++;
+      return length;
+    }
   }
   //Read
+  search(value){
 
-  //Update
-
+  }
   //Delete
+  remove(value){
+
+  }
+}
+
+class Node{
+  next = null;
+  constructor(value){
+    this.value = value;
+  }
 }
 
 const ll = new LinkedList();
