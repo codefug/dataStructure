@@ -39,14 +39,14 @@
 // queue.length;
 
 class Queue {
-  head = null;
+  front = null;
 
   enqueue(value) {
-    if (this.head===null){
-      this.head = new Node(value);
+    if (this.front===null){
+      this.front = new Node(value);
     }
     else{
-      let current = this.head;
+      let current = this.front;
       while (current.next !==null){
         current=current.next;
       }
@@ -55,19 +55,19 @@ class Queue {
   }
 
   dequeue() {
-    if (this.head === null){
+    if (this.front === null){
       return null;
     }
-    let result = this.head.value;
-    this.head = this.head.next;
+    let result = this.front.value;
+    this.front = this.front.next;
     return result
   }
 
   peek(){
-    if (this.head === null){
+    if (this.front === null){
       return null;
     }
-    return this.head.value;
+    return this.front.value;
   }
 }
 
