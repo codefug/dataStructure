@@ -39,26 +39,35 @@
 // queue.length;
 
 class Queue {
-  toppest = null;
+  head = null;
 
-  push(value) {
-    if (this.toppest === null) {
-      this.toppest = new Node(value);
-    } else {
-      let current = new Node(value);
-      current.next = this.toppest;
-      this.toppest = current;
+  enqueue(value) {
+    if (this.head===null){
+      this.head = new Node(value);
+    }
+    else{
+      let current = this.head;
+      while (current.next !==null){
+        current=current.next;
+      }
+      current.next = new Node(value);
     }
   }
 
-  pop() {
-    let value = this.toppest;
-    this.toppest = this.toppest?.next;
-    return value?.value;
+  dequeue() {
+    if (this.head === null){
+      return null;
+    }
+    let result = this.head.value;
+    this.head = this.head.next;
+    return result
   }
 
-  top() {
-    return this.toppest?.value;
+  peek(){
+    if (this.head === null){
+      return null;
+    }
+    return this.head.value;
   }
 }
 
@@ -70,7 +79,7 @@ class Node {
 }
 
 const queue = new Queue();
-queue.push(2);
-queue.push(4);
-queue.pop();
-queue.top();
+queue.enqueue(4);
+queue.enqueue(3);
+queue.dequeue();
+queue.peek();
