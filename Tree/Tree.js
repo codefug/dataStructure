@@ -3,23 +3,22 @@
 // binary tree라는 구조가 있는데 가지가 최대 2개인 트리를 Ninary tree라고 한다.
 
 //  기본 트리 코드
-// class Tree{
-//   constructor(value){
-//     this.root = new Node(value);
-//   }
-// }
+class Tree{
+  constructor(value){
+    this.root = new Node(value);
+  }
+}
 
-// class Node{
-//   children = [];
-//   constructor(value) {
-//     this.value = value;
-//   }
+class Node{
+  children = [];
+  constructor(value) {
+    this.value = value;
+  }
 
-//   push(value){
-//     this.children.push(new Node(value));
-//   }
-// }
+  push(value){
+    this.children.push(new Node(value));
+  }
+}
 
-// const tree = new Tree(50);
-// tree.root.push(3)
-
+const tree = new Tree(50);
+tree.root.push(3)
