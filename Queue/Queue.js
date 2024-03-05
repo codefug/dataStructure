@@ -38,10 +38,11 @@
 // console.log(queue.peek());
 // queue.length;
 
-class Queue {
+export class Queue {
   front = null;
-
+  length = 0;
   enqueue(value) {
+    this.length++;
     if (this.front===null){
       this.front = new Node(value);
     }
@@ -55,6 +56,7 @@ class Queue {
   }
 
   dequeue() {
+    this.length--;
     if (this.front === null){
       return null;
     }
@@ -77,9 +79,3 @@ class Node {
     this.value = value;
   }
 }
-
-const queue = new Queue();
-queue.enqueue(4);
-queue.enqueue(3);
-queue.dequeue();
-queue.peek();

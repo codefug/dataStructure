@@ -19,6 +19,3 @@ class Node{
     this.children.push(new Node(value));
   }
 }
-
-const tree = new Tree(50);
-tree.root.push(3)

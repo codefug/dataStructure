@@ -23,10 +23,11 @@
 //   }
 // }
 
-class Stack {
+export class Stack {
   toppest = null;
-
+  length = 0;
   push(value) {
+    this.length++;
     if (this.toppest === null) {
       this.toppest = new Node(value);
     } else {
@@ -37,6 +38,7 @@ class Stack {
   }
 
   pop() {
+    this.length--;
     let value = this.toppest;
     this.toppest = this.toppest?.next;
     return value?.value;
@@ -53,9 +55,3 @@ class Node {
     this.value = value;
   }
 }
-
-const stack = new Stack();
-stack.push(2);
-stack.push(4);
-stack.pop();
-stack.top();
