@@ -27,29 +27,44 @@
 //  기본 트리 코드
 class BinarySearchTree {
   root = null;
-  lenght = 0;
+  length = 0;
   // 재귀를 위한 private method
+  // length 리턴하게
   #insert(node, value) {
+    // 중복되면 그냥 length를 리턴
+    if (node.value === value){
+      return this.length;
+    }
+    // 왼쪽 트리에 넣는 경우
     if (node.value > value) {
+      // 왼쪽 트리가 비어있지 않다면 재귀
       if (node.left !== null) {
-        this.#insert(node.left, value);
+        return this.#insert(node.left, value);
       } else {
+        // 왼쪽 트리가 비어있다면 length를 더하고 리턴 length
         node.left = new Node(value);
+        return ++this.length;
       }
+      // 오른쪽 트리에 넣는 경우
     } else {
+      // 오른쪽 트리가 비어있지 않다면 재귀
       if (node.right !== null) {
-        this.#insert(node.right, value);
+        return this.#insert(node.right, value);
       } else {
+        // 오른쪽 트리가 비어있다면 length를 더하고 리턴 length
         node.right = new Node(value);
+        return ++this.length;
       }
     }
   }
   insert(value) {
     if (!this.root) {
-      return this.root = new Node(value);
+      return (this.root = new Node(value));
     }
     return this.#insert(this.root, value);
   }
+  // search는 insert와 비슷하지만 length 처리와
+  // 발견했을때 작동 방식이 다르다.
   #search(node, value) {
     if (value === node.value) {
       return node;
@@ -71,9 +86,6 @@ class BinarySearchTree {
     if (!this.root) {
       return null;
     }
-    if (this.root.value === value) {
-      return this.root;
-    }
     return this.#search(this.root, value);
   }
   #remove(node, value) {
@@ -82,15 +94,20 @@ class BinarySearchTree {
     // 2. 오른쪽 child만 있는 경우 => 오른쪽 child를 부모와 바꾸기
     // 3. 왼쪽 child만 있는 경우 => 왼쪽 child를 부모와 바꾸기
     // 4. 양쪽 다 있는 경우 => 왼쪽 서브트리에서 가장 큰 애랑 바꾸고 삭제
+    // > 얘도 결국에는 1번으로 이동되서 처리되는 형식이다.
+    // 1, 2, 3 모두 리턴 시에 length처리를 해주면 된다.
     if (!node) {
       return null;
     }
     if (node.value === value) {
-      if (!node.left & !node.right) {
+      if (!node.left && !node.right) {
+        this.length--;
         return null; // 둘다 없는 경우
       } else if (!node.left) {
+        this.length--;
         return node.right; // 오른쪽 서브트리만 존재하는 경우
       } else if (!node.right) {
+        this.length--;
         return node.left; // 왼쪽 서브트리만 존재하는 경우
       } else {
         let exchange = node.left;
@@ -98,7 +115,7 @@ class BinarySearchTree {
           exchange = exchange.right;
         }
         node.value = exchange.value;
-        node.left = this.#remove(node.left,exchange.value);
+        node.left = this.#remove(node.left, exchange.value);
         return node;
       }
     } else {
@@ -124,28 +141,22 @@ class Node {
   constructor(value) {
     this.value = value;
   }
-
-  push(value) {
-    this.children.push(new Node(value));
-  }
 }
 
 const bst = new BinarySearchTree();
-bst.insert(8);
-bst.insert(10);
-bst.insert(3);
-bst.insert(1);
-bst.insert(14);
-bst.insert(6);
-bst.insert(7);
-bst.insert(4);
-bst.insert(13);
+console.log(bst.insert(8));
+console.log(bst.insert(10));
+console.log(bst.insert(3));
+console.log(bst.insert(1));
+console.log(bst.insert(14));
+console.log(bst.insert(6));
+console.log(bst.insert(7));
+console.log(bst.insert(4));
+console.log(bst.insert(13));
+console.log(bst.insert(13));
 bst.search(7);
 bst.search(5);
 bst.remove(8);
 console.log(bst.remove(15));
 console.log(bst.remove(4));
 // 전체와 부분이 똑같은 알고리즘을 적용할 수 있으면 재귀를 사용하는 것이 좋다.
-
-// 이미 넣은 값 넣으면 에러 처리
-// length 리턴하게
