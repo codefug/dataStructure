@@ -37,10 +37,10 @@ class BinarySearchTree {
         node.left = new Node(value);
       }
     } else {
-      if (node.left !== null) {
+      if (node.right !== null) {
         this.#insert(node.right, value);
       } else {
-        node.left = new Node(value);
+        node.right = new Node(value);
       }
     }
   }
@@ -77,8 +77,13 @@ class BinarySearchTree {
     return this.#search(this.root, value);
   }
   #remove(node, value) {
+    // 4가지 경우의 수
+    // 1. Leaf인 경우 => leaf 삭제
+    // 2. 오른쪽 child만 있는 경우 => 오른쪽 child를 부모와 바꾸기
+    // 3. 왼쪽 child만 있는 경우 => 왼쪽 child를 부모와 바꾸기
+    // 4. 양쪽 다 있는 경우 => 왼쪽 서브트리에서 가장 큰 애랑 바꾸고 삭제
     if (!node) {
-      return false;
+      return null;
     }
     if (node.value === value) {
       if (!node.left & !node.right) {
@@ -88,34 +93,28 @@ class BinarySearchTree {
       } else if (!node.right) {
         return node.left; // 왼쪽 서브트리만 존재하는 경우
       } else {
-        const exchange = node.left;
+        let exchange = node.left;
         while (exchange.right) {
           exchange = exchange.right;
         }
-        const temp = node.value;
         node.value = exchange.value;
-        exchange.value = temp;
-        node.left = this.#remove(exchange.value);
+        node.left = this.#remove(node.left,exchange.value);
         return node;
       }
     } else {
       if (node.value > value) {
         node.left = this.#remove(node.left, value);
+        return node;
       } else {
         node.right = this.#remove(node.right, value);
+        return node;
       }
     }
   }
   remove(value) {
-    // 4가지 경우의 수
-    // 1. Leaf인 경우 => leaf 삭제
-    // 2. 오른쪽 child만 있는 경우 => 오른쪽 child를 부모와 바꾸기
-    // 3. 왼쪽 child만 있는 경우 => 왼쪽 child를 부모와 바꾸기
-    // 4. 양쪽 다 있는 경우 => 왼쪽 서브트리에서 가장 큰 애랑 바꾸고 삭제
-    const node = this.#remove(this.root, value);
-    if (node) {
-      this.root = node;
-    }
+    // node는 root의 값이 바뀔 때만 null이 아니게 된다.
+    this.root = this.#remove(this.root, value);
+    return this.length;
   }
 }
 
@@ -132,10 +131,21 @@ class Node {
 }
 
 const bst = new BinarySearchTree();
-bst.insert(3);
-bst.insert(4);
-bst.insert(2);
+bst.insert(8);
 bst.insert(10);
-bst.insert(23);
-
+bst.insert(3);
+bst.insert(1);
+bst.insert(14);
+bst.insert(6);
+bst.insert(7);
+bst.insert(4);
+bst.insert(13);
+bst.search(7);
+bst.search(5);
+bst.remove(8);
+console.log(bst.remove(15));
+console.log(bst.remove(4));
 // 전체와 부분이 똑같은 알고리즘을 적용할 수 있으면 재귀를 사용하는 것이 좋다.
+
+// 이미 넣은 값 넣으면 에러 처리
+// length 리턴하게
