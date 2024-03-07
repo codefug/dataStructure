@@ -1,19 +1,53 @@
-import { Queue,Node } from "./Queue.js";
+import { Node } from "./Queue.js";
 
-class Deque extends Queue{
-  back=null;
-  // shift, unshift, push, pop 형식으로 바꿔야 할듯(해라.)
-  enqueue(Node){
-    super.enqueue(Node);
-    this.back=Node;
-  }
-  //  push가 앞에서 넣는것, pop이 뒤에서 빼는 거라고 하자.
-  push(Node){
-    back = Node
-    this.length++;
-  }
-  pop(){
+class Deque {
+  front = null;
+  back = null;
+  length = 0;
+  // shift() 앞에서 빼기
+  shift() {
+    const result = this.front;
     this.length--;
+    if (this.length === 0) {
+      this.back = null;
+      this.front = null;
+    }
+    return result;
+  }
+  // unshift(Node) 앞에서 Node 더하기
+  unshift(Node) {
+    this.length++;
+    if (this.front === null) {
+      this.front = Node;
+      this.back = Node;
+    } else {
+      Node.next = this.front;
+      this.front = Node;
+    }
+  }
+
+  // push(Node) 뒤에서 Node 더하기
+  push(Node) {
+    if (this.back === null) {
+      this.front = Node;
+      this.back = Node;
+    } else {
+      this.back.next = Node;
+      this.back = Node;
+    }
+  }
+
+  // pop() 뒤에서 빼기
+  pop() {
+    this.length--;
+    if (this.length === 0) {
+      this.front = null;
+      this.back = null;
+    }
+    let Node = this.front;
+    while (Node.next !== this.back) {
+      Node = Node.next;
+    }
   }
 }
 
