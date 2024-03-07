@@ -7,7 +7,7 @@
 // 힙 정렬은 삭제하는 것 O(logn), heapify하는 것 O(n)해서
 // nlogn이 된다. 공간 복잡도는 O(n) (배열이기 때문에)
 
-class Heap {
+export class Heap {
   arr = [];
   #upheap(index) {
     if (index > 0) {
@@ -99,19 +99,19 @@ class Heap {
   }
 }
 
-const heap = new Heap();
-console.log(heap.insert(3));
-console.log(heap.insert(1));
-console.log(heap.insert(7));
-console.log(heap.insert(4));
-console.log(heap.insert(6));
-console.log(heap.insert(5));
-console.log(heap.insert(8));
-console.log("--------------------------");
-heap.remove();
-console.log("삭제 후 : "+heap.arr);
-console.log("3 인덱스 검색 : "+heap.search(3));
-heap.update(3, 9);
-console.log("3 > 9 수정 : "+heap.arr);
-console.log("힙 정렬 : " + heap.sort());
-console.log("--------------------------");
+// const heap = new Heap();
+// console.log(heap.insert(3));
+// console.log(heap.insert(1));
+// console.log(heap.insert(7));
+// console.log(heap.insert(4));
+// console.log(heap.insert(6));
+// console.log(heap.insert(5));
+// console.log(heap.insert(8));
+// console.log("--------------------------");
+// heap.remove();
+// console.log("삭제 후 : "+heap.arr);
+// console.log("3 인덱스 검색 : "+heap.search(3));
+// heap.update(3, 9);
+// console.log("3 > 9 수정 : "+heap.arr);
+// console.log("힙 정렬 : " + heap.sort());
+// console.log("--------------------------");

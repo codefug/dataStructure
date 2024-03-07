@@ -38,7 +38,7 @@
 // console.log(queue.peek());
 // queue.length;
 
-export class Queue {
+class Queue {
   front = null;
   length = 0;
   enqueue(value) {
@@ -79,3 +79,5 @@ class Node {
     this.value = value;
   }
 }
+
+export {Queue,Node};
